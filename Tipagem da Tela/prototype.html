@@ -1,0 +1,132 @@
+<style>
+        body {
+            background-color: #1dd05f;
+            margin: 0; /* Remove as margens brancas padrão do navegador */
+            font-family: Arial, sans-serif; /* Deixa a fonte mais amigável */
+        }
+        
+        #generalContainer {
+            display: flex; /* Ativa o Flexbox */
+            flex-direction: column; /* Empilha o login e o footer verticalmente */
+            justify-content: center; /* Centraliza na vertical */
+            align-items: center; /* Centraliza na horizontal */
+            height: 100vh; /* Pega 100% da altura da tela */
+        }
+
+        #AcessContainer {
+            background-color: white;
+            width: 90%;
+            max-width: 400px; 
+            padding: 30px;
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            
+            display: flex; 
+            flex-direction: column;
+        }
+
+        #titleandimage {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box; 
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .forgot-password {
+            font-size: 12px;
+            color: #1dd05f;
+            text-align: right;
+            margin-bottom: 5px; 
+            cursor: pointer;
+        }
+
+        #loginButton {
+            background-color: #1dd05f;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        #loginButton:hover {
+            background-color: #15a94c; 
+        }
+
+        .links-suporte {
+            text-align: center;
+            font-size: 13px;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        #footer {
+            color: white;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="generalContainer">
+        
+        <div id="AcessContainer">
+            <div id="titleandimage">
+                <img src="Sigfaz-Imagem.png" alt="ImagemSigFaz" style="max-width: 150px;">
+                <h2>Acesse sua Fazenda</h2>
+                <span style="font-size: 14px; color: #555;">Gestão integrada para produtores rurais que buscam eficiência e rentabilidade</span>
+            </div>
+
+            <div>
+                <label>E-mail ou Usuário</label>
+                <input type="text" placeholder="nome@exemplo.com">
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <label>Senha</label>
+                <span class="forgot-password">Esqueci minha senha</span> </div>
+            <div>
+                <input type="password" placeholder="************">
+            </div>
+            
+            <div style="font-size: 14px; display: flex; align-items: center;">
+                <input type="checkbox" style="margin-right: 5px;">
+                Lembrar deste dispositivo
+            </div>
+            
+            <div>
+                <button id="loginButton">Entrar no sistema</button>
+            </div>
+            
+            <hr style="width: 100%; border: 0.5px solid #eee; margin: 20px 0;">
+            
+            <div class="links-suporte">
+                Ainda não tem uma conta? 
+                <span style="font-size: 14px; color:#1dd05f;">Solicite Acesso</span>
+                <br>
+                Precisa de suporte técnico?
+            </div>
+        </div>
+
+        <div id="footer">
+            @ 2026 SIGFAZ - SISTEMA INTEGRADO DE GESTÃO FAZENDÁRIA
+        </div>
+    </div>
+</body>
+</html>
