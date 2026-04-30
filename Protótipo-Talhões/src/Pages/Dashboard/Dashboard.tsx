@@ -1,5 +1,6 @@
-import './App.css';
+
 import { Outlet, useNavigate, Link } from 'react-router-dom'; 
+import MenuItem from '../../Components/MenuItem';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -8,16 +9,7 @@ function Dashboard() {
     navigate('/');
   };
 
-  function MenuItem({ direction, text }: { direction: string, text: string }) {
-  return (
-    <Link 
-      to={direction} 
-      className="p-2 hover:bg-green-50 hover:text-green-600 rounded cursor-pointer transition-colors"
-    >
-      {text}
-    </Link>
-  );
-}
+  
 
 
   return (
@@ -64,6 +56,26 @@ function Dashboard() {
 
         
         <div className="flex-1 p-8 overflow-y-auto">
+          <header>
+            {/* Principal */}
+            <div className="flex items-center justify-between mb-8">
+                  {/* Esquerda */}
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1><h2>GESTÃO AGRÍCOLA</h2>
+                </div>
+                {/* Direita */}
+                <div>
+
+                </div>
+
+            </div>
+            {/* Foto */}
+            <div>
+
+            </div>
+            
+            
+          </header>
           
           <Outlet />
         </div>

@@ -1,12 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Importando as páginas
-import Login from './Login';
-import Dashboard from './Dashboard'; 
-
-
-import DashboardHome from './DashboardHome';
-import Talhoes from './Talhoes';
+import Login from './Pages/Login';
+import Dashboard from './Pages/Dashboard/Dashboard'; 
+import DashboardHome from './Pages/Dashboard/DashboardHome';
+import Talhoes from './Pages/Dashboard/Talhoes';
 
 
 function App() {
