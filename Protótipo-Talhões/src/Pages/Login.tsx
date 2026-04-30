@@ -90,7 +90,7 @@ function Login() {
 
         
         <div className="text-white mt-5 text-[12px] text-center">
-            &copy; 2026 SIGFAZ - SISTEMA INTEGRADO DE GESTÃO FAZENDÁRIA
+            &copy; © 2026 SIGFaz - Sistema Integrado de Gestão Fazendária. Todos os direitos reservados.
         </div>
        
       </div>

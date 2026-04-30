@@ -55,7 +55,7 @@ function Dashboard() {
         </div>
 
         
-        <div className="flex-1 p-8 overflow-y-auto">
+        <div className="flex-1 p-8 overflow-y-auto flex flex-col">
           <header>
             {/* Principal */}
             <div className="flex items-center justify-between mb-8">
@@ -76,8 +76,14 @@ function Dashboard() {
             
             
           </header>
+
+          <main className='flex-1'><Outlet /></main>
           
-          <Outlet />
+          
+
+          <footer className="mt-8 pt-4 text-center text-sm text-gray-500 border-t border-gray-300">
+            &copy; 2026 SIGFaz - Sistema Integrado de Gestão Fazendária. Todos os direitos reservados.
+          </footer>
         </div>
         
       </div>
