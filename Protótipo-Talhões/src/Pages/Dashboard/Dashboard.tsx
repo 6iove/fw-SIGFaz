@@ -1,6 +1,9 @@
 
 import { Outlet, useNavigate, Link } from 'react-router-dom'; 
 import MenuItem from '../../Components/MenuItem';
+import notification from '../../assets/notification.png';
+import search from '../../assets/search.png';
+import person from '../../assets/person.png';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -57,24 +60,49 @@ function Dashboard() {
         
         <div className="flex-1 p-8 overflow-y-auto flex flex-col">
           <header>
-            {/* Principal */}
-            <div className="flex items-center justify-between mb-8">
-                  {/* Esquerda */}
+            <div className="flex items-center justify-between mb-8 text-gray-500 border-b border-gray-300 pb-4">
+                
+                {/* Esquerda */}
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1><h2>GESTÃO AGRÍCOLA</h2>
+                  <h2 className="font-bold text-gray-600">GESTÃO AGRÍCOLA</h2>
                 </div>
+                
                 {/* Direita */}
-                <div>
+                <div className='flex items-center gap-6'>
+                  
+                  {/* Buscar */}
+                  
+                  <div className='p-1.5 border border-gray-300 rounded-[5px] flex items-center gap-2 focus-within:border-[#1dd05f] transition-colors duration-200'>
+                    <img className="w-4 h-4 ml-1" src={search} alt="Buscar" />
+                    <input 
+                      type="text" 
+                      placeholder="Buscar dados..." 
+                      className="outline-none bg-transparent w-full text-sm"
+                    />
+                  </div>
+
+                  {/* Notificação */} 
+                  <div className="cursor-pointer hover:opacity-80 transition-opacity">
+                    <img className="w-6 h-6" src={notification} alt="Notificação" />
+                  </div>
+
+                  {/* Perfil do Usuário */}
+                  <div className='flex items-center gap-3 border-l border-gray-300 pl-6 cursor-pointer'>
+                    <div className='flex flex-col text-right'>
+                      <p className="text-sm font-bold text-gray-700">Ricardo Oliveira</p>
+                      <span className="text-xs text-gray-500">Produtor Rural</span>
+                    </div>
+                    
+                    <img 
+                      src={person} 
+                      alt="Foto do usuário" 
+                      className="w-10 h-10 rounded-full object-cover shrink-0 bg-gray-200" 
+                    />
+                  </div>
 
                 </div>
 
             </div>
-            {/* Foto */}
-            <div>
-
-            </div>
-            
-            
           </header>
 
           <main className='flex-1'><Outlet /></main>
