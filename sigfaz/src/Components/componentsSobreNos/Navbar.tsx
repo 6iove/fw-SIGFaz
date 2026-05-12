@@ -19,8 +19,8 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center  gap-8 text-gray-600 font-medium">
-          <a href="#">Home</a>
-          <a href="#">Sobre nós</a>
+          <a href="/">Home</a>
+          <a href="/sobre-nos">Sobre nós</a>
         </div>
       </div>
       <div className="flex items-center gap-6">

@@ -1,4 +1,5 @@
-import { LuUserPlus, LuClipboardEdit, LuPieChart } from "react-icons/lu";
+import { LuUserPlus, LuClipboard } from "react-icons/lu";
+import { FiPieChart } from "react-icons/fi";
 
 export const PassosHome = () => {
   return (
@@ -16,8 +17,8 @@ export const PassosHome = () => {
         
         <div className="bg-green-50 rounded-3xl p-8 flex flex-col justify-center gap-8">
             <FeatureItem Icon={LuUserPlus} title="Registro Fácil" desc="Interface intuitiva para qualquer perfil." />
-            <FeatureItem Icon={LuClipboardEdit} title="Relatórios PDF" desc="Gere documentos prontos para impressão." />
-            <FeatureItem Icon={LuPieChart} title="Gráficos de Esforço" desc="Entenda onde está investindo seu tempo." />
+            <FeatureItem Icon={LuClipboard} title="Relatórios PDF" desc="Gere documentos prontos para impressão." />
+            <FeatureItem Icon={FiPieChart} title="Gráficos de Esforço" desc="Entenda onde está investindo seu tempo." />
         </div>
       </div>
     </section>

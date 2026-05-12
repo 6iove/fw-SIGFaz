@@ -1,5 +1,5 @@
-import { TechCard } from "../componentsSobreNos/Tecnologias";
-import { LuLayoutDashboard, LuBarChart3, LuCalendarCheck, LuMap } from "react-icons/lu";
+import { TechCard } from "../componentsSobreNos/CardTecnologias";
+import { LuLayoutDashboard, LuArmchair, LuCalendarCheck, LuMap } from "react-icons/lu";
 
 export const RecursosHome = () => {
   const recursos = [
@@ -10,7 +10,7 @@ export const RecursosHome = () => {
       description: "Mapeie sua propriedade e acompanhe o histórico de cada área cultivada de forma individual."
     },
     {
-      Icon: LuBarChart3,
+      Icon: LuArmchair,
       category: "Financeiro",
       title: "Análise de Custos",
       description: "Tenha visão clara dos seus gastos com insumos, maquinário e mão de obra em tempo real."
