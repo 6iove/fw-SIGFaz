@@ -1,18 +1,21 @@
 import Button from "../../Components/Button";
 // import SectionCard from "../../Components/SectionCard";
+import { useNavigate } from "react-router-dom";
 import { Download, Plus, Map, TrendingUp, DollarSign, Search, Filter } from "lucide-react";
 import Panel from "../../Components/Panel";
 import ListaTalhoes from "../../Components/ListTalhoes";
 import DashboardCards from "../../Components/DashboardCards";
 
 export default function Talhoes() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col text-left m-10 g-4">
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold text-gray-800">Gestão de Talhões</h1>
         <div className="flex flex-row justify-center items-center gap-4">
           <Button icon={<Download className="text-gray-600" size={20} />}  text="Exportar" bgColor="bg-gray-200" fontColor="text-gray-600" bgHover="bg-gray-100"/>
-          <Button icon={<Plus className="text-white" size={20} />}  text="Novo Talhão" bgColor="bg-green-600" fontColor="text-white" bgHover="bg-green-400"/>
+          <Button onClick={() => navigate("/dashboard/CadTalhoes")} icon={<Plus className="text-white" size={20} />}  text="Novo Talhão" bgColor="bg-green-600" fontColor="text-white" bgHover="bg-green-400"/>
         </div>
       </div>
       <p className="mt-4 text-gray-600">Visualize e gerencie a produtividade de suas áreas produtivas.</p>

@@ -13,6 +13,7 @@ import Gastos from './Pages/Dashboard/Gastos';
 import Lucro from './Pages/Dashboard/Lucro';
 import SobreNos from './Pages/SobreNos';
 import Home from './Pages/Home';
+import CadTalhoes from './Pages/Dashboard/CadTalhoes';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           
           
           <Route path="talhoes" element={<Talhoes />} />
+          <Route path="CadTalhoes" element={<CadTalhoes />} /> 
           <Route path="maquinas" element={<Maquinas />} />
           <Route path="culturas" element={<Culturas />} />
           <Route path="insumos" element={<Insumos />} />

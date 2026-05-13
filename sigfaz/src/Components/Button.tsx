@@ -5,12 +5,13 @@ interface ButtonProps{
     bgColor: string,
     fontColor: string,
     text: string,
-    bgHover: string
+    bgHover: string, 
+    onClick?: () => void
 }
 
-export default function Button({icon, bgColor, fontColor, text, bgHover}: ButtonProps){
+export default function Button({icon, bgColor, fontColor, text, bgHover, onClick}: ButtonProps){
     return(
-        <button className={`${bgColor} flex flex-rol gap-1 p-2 items-center justify-center rounded-md shadow cursor-pointer transition-colors hover:${bgHover}`}>
+        <button onClick={onClick} className={`${bgColor} flex flex-rol gap-1 p-2 items-center justify-center rounded-md shadow cursor-pointer transition-colors hover:${bgHover}`}>
             {icon}
             <p className={`${fontColor}`}>{text}</p>
         </button>
