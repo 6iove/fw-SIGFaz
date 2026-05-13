@@ -11,14 +11,16 @@ import Maquinas from './Pages/Dashboard/Maquinas';
 import Atividades from './Pages/Dashboard/Atividades';
 import Gastos from './Pages/Dashboard/Gastos';
 import Lucro from './Pages/Dashboard/Lucro';
+import SobreNos from './Pages/SobreNos';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<SobreNos />} />
        
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         
         
         <Route path="/dashboard" element={<Dashboard />}>
