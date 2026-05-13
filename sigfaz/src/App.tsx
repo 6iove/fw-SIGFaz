@@ -12,13 +12,16 @@ import Atividades from './Pages/Dashboard/Atividades';
 import Gastos from './Pages/Dashboard/Gastos';
 import Lucro from './Pages/Dashboard/Lucro';
 import SobreNos from './Pages/SobreNos';
+import Home from './Pages/Home';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SobreNos />} />
+        <Route path="/" element={<Home />} />
+
+        <Route path="/sobre-nos" element={<SobreNos />} />
        
         <Route path="/login" element={<Login />} />
         
