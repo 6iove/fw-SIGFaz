@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Rodar o Backend
 
 Siga o passo a passo abaixo para configurar e executar a API localmente:
@@ -21,3 +22,9 @@ uvicorn main:app --reload
 ## Documentação das Rotas
 Com o servidor rodando, acesse a interface do Swagger para testar as rotas:
 http://127.0.0.1:8000/docs
+=======
+# fw-SIGFaz
+
+Link para tela no Visily:
+https://app.visily.ai/projects/37de421f-33c9-4740-91df-48c14efc32b9/boards/2513956
+>>>>>>> 9ef3571 (Update README with Visily project link)
