@@ -1,7 +1,11 @@
-
-import { LuLayoutTemplate, LuServer, LuDatabase, LuGraduationCap  } from 'react-icons/lu';
+import {
+  LuLayoutTemplate,
+  LuServer,
+  LuDatabase,
+  LuGraduationCap,
+} from "react-icons/lu";
 import { IoCodeSlash } from "react-icons/io5";
-import { TechCard } from '../componentsSobreNos/CardTecnologias';
+import { TechCard } from "./CardTecnologias";
 
 export const Tecnologia = () => {
   const Informacao = [
@@ -30,12 +34,14 @@ export const Tecnologia = () => {
   return (
     <section className="bg-white py-16 px-6">
       <div className="max-w-6xl mx-auto text-center mb-16">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Tecnologia de Ponta</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          Tecnologia de Ponta
+        </h2>
       </div>
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
         {Informacao.map((tech, index) => (
-          <TechCard 
+          <TechCard
             key={index}
             Icon={tech.Icon}
             category={tech.category}
