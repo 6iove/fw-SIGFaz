@@ -1,4 +1,4 @@
-import { CardMembros } from "../componentsSobreNos/CardMembros";
+import { CardMembros } from "./CardMembros";
 import imgRoberto from "../../assets/roberto.png";
 import imgAna from "../../assets/ana.png";
 import imgMarcos from "../../assets/marcos.png";

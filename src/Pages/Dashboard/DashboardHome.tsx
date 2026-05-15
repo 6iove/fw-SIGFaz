@@ -1,4 +1,3 @@
-
 import dollar from '../../assets/dollar.png';
 import increase from '../../assets/increase.png';
 import plant from '../../assets/plant.png';
