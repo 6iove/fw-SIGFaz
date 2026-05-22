@@ -1,36 +1,19 @@
 import React from 'react';
-import { Eye, Pencil, Trash2, Search, Filter, Grip } from 'lucide-react';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
 
-// Dados de exemplo
-const talhoes = [
-  {
-    id: '200-FAZ',
-    nome: 'Talhão Sul 04',
-    cultura: 'Milho',
-    area: 85,
-    produtividade: 140,
-    valor: 4100.00,
-    status: 'Plantio',
-  },
-  {
-    id: '300-FAZ',
-    nome: 'Várzea Central',
-    cultura: 'Algodão',
-    area: 210.3,
-    produtividade: 280,
-    valor: 5500.00,
-    status: 'Colheita',
-  },
-  {
-    id: '400-FAZ',
-    nome: 'Encosta Leste',
-    cultura: 'Soja',
-    area: 45.2,
-    produtividade: 62,
-    valor: 3150.00,
-    status: 'Desenvolvimento',
-  },
-];
+type Talhao = {
+  id: string;
+  nome: string;
+  cultura: string;
+  area: number;
+  produtividade: number;
+  valor: number;
+  status: string;
+};
+
+interface ListaTalhoesProps {
+  talhoes: Talhao[];
+}
 
 // Funções auxiliares (Agora com TypeScript!)
 const getCulturaStyle = (cultura: string) => {
@@ -58,7 +41,7 @@ const formatarMoeda = (valor: number) => {
   }).format(valor);
 };
 
-export default function ListaTalhoes() {
+export default function ListaTalhoes({ talhoes }: ListaTalhoesProps) {
   return (
     <div className="w-full mx-auto bg-white rounded-t-xl shadow-sm border border-gray-200 overflow-hidden text-sm">
 

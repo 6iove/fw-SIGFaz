@@ -1,13 +1,60 @@
 import Button from "../../Components/Button";
 // import SectionCard from "../../Components/SectionCard";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Download, Plus, Map, TrendingUp, DollarSign, Search, Filter } from "lucide-react";
 import Panel from "../../Components/Panel";
 import ListaTalhoes from "../../Components/ListTalhoes";
 import DashboardCards from "../../Components/DashboardCards";
+import api from "../../services/api";
+
+type Talhao = {
+  id: string;
+  nome: string;
+  cultura: string;
+  area: number;
+  produtividade: number;
+  valor: number;
+  status: string;
+};
 
 export default function Talhoes() {
   const navigate = useNavigate();
+  const [talhoes, setTalhoes] = useState<Talhao[]>([]);
+
+  useEffect(() => {
+    async function carregarTalhoes() {
+      try {
+        const response = await api.get('/talhoes/');
+       setTalhoes(response.data);
+      } catch (error) {
+        console.error('Error ao buscar talhoes:', error);
+      }
+    }
+    //carregarTalhoes();
+     setTalhoes([
+      {
+        id: '1',
+        nome: 'Talhão Norte',
+        cultura: 'Soja',
+        area: 120,
+        produtividade: 58,
+        valor: 3850,
+        status: 'Desenvolvimento',
+      },
+      {
+        id: '2',
+        nome: 'Talhão Sul',
+        cultura: 'Milho',
+        area: 80,
+        produtividade: 72,
+        valor: 4200,
+        status: 'Plantio',
+      },
+    ]);
+
+     carregarTalhoes();
+  }, []);
 
   return (
     <div className="flex flex-col text-left m-10 g-4">
@@ -64,7 +111,7 @@ export default function Talhoes() {
         <div className="w-21"></div> 
         </div>
 
-        <ListaTalhoes />
+        <ListaTalhoes talhoes={talhoes} />
       
         <div className="flex items-center justify-between p-4 bg-white border-t border-gray-200 text-sm rounded-b-xl">
         
