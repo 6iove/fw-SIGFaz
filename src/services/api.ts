@@ -1,5 +1,4 @@
-//prepara a baseURL para as requisições
-
+//cria uma instancia 
 import axios from 'axios';
 
 const apiSigfaz = axios.create({
