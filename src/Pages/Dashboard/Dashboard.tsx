@@ -11,10 +11,6 @@ function Dashboard() {
   const handleExit = () => {
     navigate('/');
   };
-
-  
-
-
   return (
     <>
       

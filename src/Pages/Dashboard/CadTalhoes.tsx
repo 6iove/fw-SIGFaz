@@ -1,7 +1,7 @@
 import Button from "../../Components/componentsCadTalhoes/Button";
 import SectionCard from "../../Components/SectionCard";
-import { Leaf, Calendar, Droplet, User, X, Save } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Leaf, Calendar, Droplet, User, Save } from "lucide-react";
+import { useState } from "react";
 import api from "../../services/api";
 
 export default function CadTalhoes() {
@@ -16,7 +16,8 @@ export default function CadTalhoes() {
     maquina_id: "",
     operador: "",
   });
-  //requisição de post ok
+
+  //função com a requisição de post 
   async function salvarTalhao() {
     try {
       const response = await api.post("/talhoes/", formData);
@@ -27,52 +28,11 @@ export default function CadTalhoes() {
       alert("Erro ao cadastrar");
     }
   }
-  //requisição de get ok
-  async function buscarTalhoes() {
-    try {
-      const response = await api.get("/talhoes/");
-      console.log("Talhões encontrados:", response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  //requisição de put ok (avaliando se necessario)
-  async function atualizarTalhao() {
-    try {
-      const response = await api.put(`/talhoes/${formData.id}/`, formData);
-      console.log("Talhão atualizado!", response.data, formData);
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao atualizar!");
-    }
-  }
-  //requisição de delete ok 
-  async function deletarTalhao(id: number) {
-    try {
-      await api.delete(`/talhoes/${id}/`);
-
-      console.log("Talhão deletado!", id);
-      alert("Talhão deletado com sucesso!");
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao deletar!");
-    }
-  }
-{/*usando o useEffect para chamar a função de buscar os talhões quando o componente for montado */}
-  useEffect(() => {
-    buscarTalhoes();
-  }, []);
-
-  //chamando a função para buscar os talhões cadastrados
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) {
+ 
+  //Atualiza automaticamente o estado do formulário
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,) {
     const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({...prev,[name]: value,}));
   }
 
   return (
@@ -243,27 +203,6 @@ export default function CadTalhoes() {
           
           <div className="mt-12 flex justify-end gap-2.5">
 
-            {/*vai excluir o talhão com id 1, teste para mostrar a função de
-            delete funcionando! depois muda para excluir o talhão selecionado */}
-
-            <div onClick={() => deletarTalhao(Number(formData.id))}>
-              <Button
-                icon={<X size={15} />}
-                bgColor="bg-gray-200"
-                fontColor="text-black"
-                text="Excluir"
-                bgHover="hover:bg-gray-600"
-              />
-            </div>
-              <div onClick={atualizarTalhao}>
-              <Button
-                icon={<Save size={15} color="white" />}
-                bgColor="bg-blue-600"
-                fontColor="text-white"
-                text="Atualizar"
-                bgHover="hover:bg-blue-700"
-              />
-            </div>
             <div onClick={salvarTalhao}>
               <Button
                 icon={<Save size={15} color="white" />}
