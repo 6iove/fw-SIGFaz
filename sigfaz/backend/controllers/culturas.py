@@ -11,7 +11,7 @@ router_culturas = APIRouter(
 @router_culturas.post('/')  
 def cadastrar_cultura(cultura: Cultura):
     conn = conectar()
-    cursor = conn.cursor
+    cursor = conn.cursor()
 
     sql = """
     INSERT INTO Cultura
@@ -36,7 +36,7 @@ def cadastrar_cultura(cultura: Cultura):
 
 # listar
 @router_culturas.get('/')  
-def listar_culturas(id: int):
+def listar_culturas():
     conn = conectar()
     cursor = conn.cursor()
 
