@@ -35,7 +35,11 @@ class Funcionario(BaseModel):
     salario: float
     cpf: str
     telefone: str
-    
+class Operador(BaseModel):
+    nome: str
+    cpf: str
+    cargo: str
+    idFazenda: int
 class Atividade(BaseModel):
     tipo: str
     data: str
