@@ -176,3 +176,173 @@ def deletar_plantio(id: int):
     finally:
         cursor.close()
         conn.close()
+
+
+#Colheita
+@router_atividades.post('/colheita')
+def criar_colheita(colheita: Colheita):
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        sql = """
+        INSERT INTO Colheita
+        (idPlantio, cultura, data_colheita, quantidade)
+        VALUES (%s, %s, %s, %s)
+        RETURNING id
+        """
+
+        valores = (
+            colheita.idPlantio,
+            colheita.cultura,
+            colheita.data_colheita,
+            colheita.quantidade
+        )
+
+        cursor.execute(sql, valores)
+        novo_id = cursor.fetchone()[0]
+        conn.commit()
+
+        return {"mensagem": "Colheita registrada", "id": novo_id}
+
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@router_atividades.get('/colheita')
+def listar_colheitas():
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT c.id, c.idPlantio, c.cultura, c.data_colheita, c.quantidade,
+                   p.data_plantio, p.area AS area_plantio
+            FROM Colheita c
+            LEFT JOIN Plantio p ON p.id = c.idPlantio
+            ORDER BY c.data_colheita DESC
+        """)
+
+        colunas = [desc[0] for desc in cursor.description]
+        dados = [dict(zip(colunas, row)) for row in cursor.fetchall()]
+
+        return dados
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@router_atividades.get('/colheita/{id}')
+def buscar_colheita(id: int):
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT c.id, c.idPlantio, c.cultura, c.data_colheita, c.quantidade,
+                   p.data_plantio, p.area AS area_plantio
+            FROM Colheita c
+            LEFT JOIN Plantio p ON p.id = c.idPlantio
+            WHERE c.id = %s
+        """, (id,))
+
+        row = cursor.fetchone()
+
+        if row is None:
+            raise HTTPException(status_code=404, detail="Colheita não encontrada")
+
+        colunas = [desc[0] for desc in cursor.description]
+        return dict(zip(colunas, row))
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@router_atividades.put('/colheita/{id}')
+def atualizar_colheita(id: int, colheita: Colheita):
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        sql = """
+        UPDATE Colheita
+        SET idPlantio=%s,
+            cultura=%s,
+            data_colheita=%s,
+            quantidade=%s
+        WHERE id=%s
+        """
+
+        valores = (
+            colheita.idPlantio,
+            colheita.cultura,
+            colheita.data_colheita,
+            colheita.quantidade,
+            id
+        )
+
+        cursor.execute(sql, valores)
+
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Colheita não encontrada")
+
+        conn.commit()
+        return {"mensagem": "Colheita atualizada"}
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@router_atividades.delete('/colheita/{id}')
+def deletar_colheita(id: int):
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("DELETE FROM Colheita WHERE id=%s", (id,))
+
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Colheita não encontrada")
+
+        conn.commit()
+        return {"mensagem": "Colheita deletada"}
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+    finally:
+        cursor.close()
+        conn.close()
