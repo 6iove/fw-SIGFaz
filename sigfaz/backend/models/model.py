@@ -3,7 +3,7 @@ from pydantic import BaseModel
 class Fazenda(BaseModel):
     nome: str
     localizacao: str
-    tamanho_hectares: float
+    areaTotal: float
 
 class Talhao(BaseModel):
     area: float
@@ -12,24 +12,63 @@ class Talhao(BaseModel):
     volumeEstimado: float
     idFazenda: int
 
-class Maquina(BaseModel):
-    nome: str
-    tipo: str
-    status: str
+class Safra(BaseModel):
+    inicio: str
+    fim: str
 
-class Operador(BaseModel):
-    nome: str
-    cpf: str
-    funcao: str
-
+class Plantio(BaseModel):
+    data: str
+    idSafra: int 
+    idTalhao: int
 class Cultura(BaseModel):
-    nome: str
-    safra: str
+    data: str
+    quantidade: float
 
+class Colheita(BaseModel):
+    data: str
+    quantidade: float
+    idCultura: int
+    
+class Funcionario(BaseModel):
+    nome: str
+    funcao: str
+    salario: float
+    cpf: str
+    telefone: str
+    
+class Atividade(BaseModel):
+    tipo: str
+    data: str
+    horaInicio: str
+    horaFim: str
+    custoTotal: float
+    descricao: str
+    idFuncionario: int
 class Insumo(BaseModel):
     nome: str
+    tipo: str
+    custo: float
     quantidade: int
+    
+class AtividadeInsumo(BaseModel):
+    idAtividade: int
+    idInsumo: int
+    quantidade: float
+    custo: float
+    unidadeMedida: str
+class Maquina(BaseModel):
+    tipo: str
+    modelo: str
+    custoHora: float
+    ano: int
+    status: str
+    
+class UsoMaquina(BaseModel):
+    idAtividade: int
+    idMaquina: int
+    horasUso: str
 
+### verficar
 class Semente(BaseModel):
     nome: str
     quantidade: int
@@ -48,17 +87,6 @@ class Defensivo(BaseModel):
     unidade: str
     principioAtivo: str
 
-class Plantio(BaseModel):
-    idTalhao: int
-    cultura: str
-    data_plantio: str
-    area: float
-
-class Colheita(BaseModel):
-    idPlantio: int
-    cultura: str
-    data_colheita: str
-    quantidade: float
 
 class Custo(BaseModel):
     descricao: str
