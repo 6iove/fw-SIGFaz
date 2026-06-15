@@ -1,7 +1,7 @@
 import { Plus, Search, Eye, Edit3, Trash2, LayoutDashboard, Package, Sprout,} from 'lucide-react'; 
 import Button from '../../Components/Button';
 import { useState } from 'react';
-import ModalNovoCadastro from '../../Components/componentsCadTalhoes/ModalCadastroFazenda';
+import ModalNovoCadastro from '../../Components/componentsFazenda/ModalCadastroFazenda';
 
 export default function FazendasPage() {
 

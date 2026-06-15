@@ -19,3 +19,4 @@ def calcular_custo_por_hectare():
 @router_custos.get('/por-safra')
 def calcular_custo_por_safra():
     pass 
+

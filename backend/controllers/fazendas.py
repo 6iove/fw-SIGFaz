@@ -1,114 +1,75 @@
-from fastapi import APIRouter
-from models.model import Fazenda
-from db import conectar
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 
-router_fazendas = APIRouter(
-    prefix="/fazendas",
-    tags=["Fazendas"]
-)
+router_fazendas = APIRouter(prefix='/fazendas', tags=['Fazendas'])
 
 
-# =========================
-# CREATE
-# =========================
+class FazendaInput(BaseModel):
+    nome: str
+    localizacao: str
+    area_total_hectares: float
+
+
+banco_fazendas = []
+
+
 @router_fazendas.post('/')
-def cadastrar_fazenda(fazenda: Fazenda):
+def cadastrar_fazenda(dados: FazendaInput):
+    novo_id = len(banco_fazendas) + 1
 
-    conn = conectar()
-    cursor = conn.cursor()
+    fazenda = {
+        'id': novo_id,
+        'nome': dados.nome,
+        'localizacao': dados.localizacao,
+        'area_total_hectares': dados.area_total_hectares
+    }
 
-    sql = """
-    INSERT INTO Fazenda
-    (nome, localizacao, tamanho_hectares)
-    VALUES (%s, %s, %s)
-    """
+    banco_fazendas.append(fazenda)
 
-    valores = (
-        fazenda.nome,
-        fazenda.localizacao,
-        fazenda.tamanho_hectares
-    )
-
-    cursor.execute(sql, valores)
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Fazenda cadastrada"}
+    return {
+        'mensagem': 'Fazenda cadastrada com sucesso',
+        'dados': fazenda
+    }
 
 
-# =========================
-# READ
-# =========================
 @router_fazendas.get('/')
-def listar_fazendas():
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM Fazenda")
-
-    dados = cursor.fetchall()
-
-    cursor.close()
-    conn.close()
-
-    return dados
+def consultar_fazendas():
+    return banco_fazendas
 
 
-# =========================
-# UPDATE
-# =========================
+@router_fazendas.get('/{id}')
+def consultar_fazenda(id: int):
+    for fazenda in banco_fazendas:
+        if fazenda['id'] == id:
+            return fazenda
+
+    raise HTTPException(status_code=404, detail='Fazenda não encontrada')
+
+
 @router_fazendas.put('/{id}')
-def atualizar_fazenda(id: int, fazenda: Fazenda):
+def alterar_fazenda(id: int, dados: FazendaInput):
+    for fazenda in banco_fazendas:
+        if fazenda['id'] == id:
+            fazenda['nome'] = dados.nome
+            fazenda['localizacao'] = dados.localizacao
+            fazenda['area_total_hectares'] = dados.area_total_hectares
 
-    conn = conectar()
-    cursor = conn.cursor()
+            return {
+                'mensagem': 'Fazenda atualizada',
+                'dados': fazenda
+            }
 
-    sql = """
-    UPDATE Fazenda
-    SET nome=%s,
-        localizacao=%s,
-        tamanho_hectares=%s
-    WHERE id=%s
-    """
-
-    valores = (
-        fazenda.nome,
-        fazenda.localizacao,
-        fazenda.tamanho_hectares,
-        id
-    )
-
-    cursor.execute(sql, valores)
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Fazenda atualizada"}
+    raise HTTPException(status_code=404, detail='Fazenda não encontrada')
 
 
-# =========================
-# DELETE
-# =========================
 @router_fazendas.delete('/{id}')
 def deletar_fazenda(id: int):
+    for fazenda in banco_fazendas:
+        if fazenda['id'] == id:
+            banco_fazendas.remove(fazenda)
 
-    conn = conectar()
-    cursor = conn.cursor()
+            return {
+                'mensagem': 'Fazenda removida'
+            }
 
-    cursor.execute(
-        "DELETE FROM Fazenda WHERE id=%s",
-        (id,)
-    )
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Fazenda deletada"}
+    raise HTTPException(status_code=404, detail='Fazenda não encontrada')

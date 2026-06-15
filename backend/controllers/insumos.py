@@ -1,303 +1,36 @@
 from fastapi import APIRouter
-from models.model import Semente, Fertilizante, Defensivo
-from db import conectar
 
+router_sementes= APIRouter(prefix="/sementes")
+router_fertilizantes= APIRouter(prefix="/fertilizantes")
+router_defensivos= APIRouter(prefix="/defensivos")
 
-# sementes
-router_sementes = APIRouter(
-    prefix="/sementes",
-    tags=["Sementes"]
-)
+@router_sementes.get('/')  
 
-@router_sementes.post('/')
-def cadastrar_semente(semente: Semente):
+def consultar_sementes():
+    pass
 
-    conn = conectar()
-    cursor = conn.cursor()
+@router_sementes.post('/')  
 
-    sql = """
-    INSERT INTO Semente
-    (nome, quantidade, unidade, cultura)
-    VALUES (%s, %s, %s, %s)
-    """
+def cadastrar_sementes():
+    pass
 
-    valores = (
-        semente.nome,
-        semente.quantidade,
-        semente.unidade,
-        semente.cultura
-    )
+@router_fertilizantes.get('/')  
 
-    cursor.execute(sql, valores)
+def consultar_fertilizantes():
+    pass
 
-    conn.commit()
+@router_fertilizantes.post('/')  
 
-    cursor.close()
-    conn.close()
+def cadastrar_fertilizantes():
+    pass
 
-    return {"mensagem": "Semente cadastrada"}
+@router_defensivos.get('/')  
 
-@router_sementes.get('/')
-def listar_sementes():
+def consultar_defensivos():
+    pass
 
-    conn = conectar()
-    cursor = conn.cursor()
+@router_defensivos.post('/')  
 
-    cursor.execute("SELECT * FROM Semente")
+def cadastrar_defensivos():
+    pass
 
-    dados = cursor.fetchall()
-
-    cursor.close()
-    conn.close()
-
-    return dados
-
-@router_sementes.put('/{id}')
-def atualizar_semente(id: int, semente: Semente):
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    sql = """
-    UPDATE Semente
-    SET nome=%s,
-        quantidade=%s,
-        unidade=%s,
-        cultura=%s
-    WHERE id=%s
-    """
-
-    valores = (
-        semente.nome,
-        semente.quantidade,
-        semente.unidade,
-        semente.cultura,
-        id
-    )
-
-    cursor.execute(sql, valores)
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Semente atualizada"}
-
-@router_sementes.delete('/{id}')
-def deletar_semente(id: int):
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "DELETE FROM Semente WHERE id=%s",
-        (id,)
-    )
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Semente deletada"}
-
-
-# fertilizantes
-router_fertilizantes = APIRouter(
-    prefix="/fertilizantes",
-    tags=["Fertilizantes"]
-)
-
-
-@router_fertilizantes.post('/')
-def cadastrar_fertilizante(fertilizante: Fertilizante):
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    sql = """
-    INSERT INTO Fertilizante
-    (nome, quantidade, unidade, tipo)
-    VALUES (%s, %s, %s, %s)
-    """
-
-    valores = (
-        fertilizante.nome,
-        fertilizante.quantidade,
-        fertilizante.unidade,
-        fertilizante.tipo
-    )
-
-    cursor.execute(sql, valores)
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Fertilizante cadastrado"}
-
-@router_fertilizantes.get('/')
-def listar_fertilizantes():
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM Fertilizante")
-
-    dados = cursor.fetchall()
-
-    cursor.close()
-    conn.close()
-
-    return dados
-
-@router_fertilizantes.put('/{id}')
-def atualizar_fertilizante(id: int, fertilizante: Fertilizante):
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    sql = """
-    UPDATE Fertilizante
-    SET nome=%s,
-        quantidade=%s,
-        unidade=%s,
-        tipo=%s
-    WHERE id=%s
-    """
-
-    valores = (
-        fertilizante.nome,
-        fertilizante.quantidade,
-        fertilizante.unidade,
-        fertilizante.tipo,
-        id
-    )
-
-    cursor.execute(sql, valores)
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Fertilizante atualizado"}
-
-@router_fertilizantes.delete('/{id}')
-def deletar_fertilizante(id: int):
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "DELETE FROM Fertilizante WHERE id=%s",
-        (id,)
-    )
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Fertilizante deletado"}
-
-# defensivos 
-router_defensivos = APIRouter(
-    prefix="/defensivos",
-    tags=["Defensivos"]
-)
-
-@router_defensivos.post('/')
-def cadastrar_defensivo(defensivo: Defensivo):
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    sql = """
-    INSERT INTO Defensivo
-    (nome, quantidade, unidade, principioAtivo)
-    VALUES (%s, %s, %s, %s)
-    """
-
-    valores = (
-        defensivo.nome,
-        defensivo.quantidade,
-        defensivo.unidade,
-        defensivo.principioAtivo
-    )
-
-    cursor.execute(sql, valores)
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Defensivo cadastrado"}
-
-@router_defensivos.get('/')
-def listar_defensivos():
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM Defensivo")
-
-    dados = cursor.fetchall()
-
-    cursor.close()
-    conn.close()
-
-    return dados
-
-@router_defensivos.put('/{id}')
-def atualizar_defensivo(id: int, defensivo: Defensivo):
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    sql = """
-    UPDATE Defensivo
-    SET nome=%s,
-        quantidade=%s,
-        unidade=%s,
-        principioAtivo=%s
-    WHERE id=%s
-    """
-
-    valores = (
-        defensivo.nome,
-        defensivo.quantidade,
-        defensivo.unidade,
-        defensivo.principioAtivo,
-        id
-    )
-
-    cursor.execute(sql, valores)
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Defensivo atualizado"}
-
-@router_defensivos.delete('/{id}')
-def deletar_defensivo(id: int):
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "DELETE FROM Defensivo WHERE id=%s",
-        (id,)
-    )
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
-
-    return {"mensagem": "Defensivo deletado"}
