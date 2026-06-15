@@ -5,10 +5,11 @@ interface PanelProps {
     title: string,
     icon: ReactNode,
     value: string,
-    subtitle: string
+    subtitle: string, 
+    subtitleColor?: string,
 }
 
-export default function Panel({ bgColor, title, icon, value, subtitle }: PanelProps) {
+export default function Panel({ bgColor, title, icon, value, subtitle, subtitleColor }: PanelProps) {
     return (
         // Removi: w-[45%], h-37.5 e m-4.
         // Adicionei: w-full e h-full. Agora ele se adapta!
@@ -24,7 +25,7 @@ export default function Panel({ bgColor, title, icon, value, subtitle }: PanelPr
             {/* O mt-auto empurra o texto pra baixo caso um título seja maior que o outro */}
             <div className="mt-auto pt-4">
                 <h1 className="font-bold text-2xl md:text-3xl">{value}</h1>
-                <p className="font-medium text-xs md:text-sm text-gray-400 mt-1">{subtitle}</p>
+                <p className={`font-medium text-xs md:text-sm mt-1 ${subtitleColor ? subtitleColor : "text-gray-400"}`}>{subtitle}</p>
             </div>
 
         </div>
