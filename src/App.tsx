@@ -14,6 +14,7 @@ import Lucro from './Pages/Dashboard/Lucro';
 import SobreNos from './Pages/SobreNos';
 import Home from './Pages/Home';
 import CadTalhoes from './Pages/Dashboard/CadTalhoes';
+import Fazenda from './Pages/Dashboard/Fazenda';
 
 
 function App() {
@@ -28,12 +29,14 @@ function App() {
         
         
         <Route path="/dashboard" element={<Dashboard />}>
+
           
           
           <Route index element={<DashboardHome />} />
           
           
           <Route path="talhoes" element={<Talhoes />} />
+          <Route path="fazenda" element={<Fazenda />} />
           <Route path="CadTalhoes" element={<CadTalhoes />} /> 
           <Route path="maquinas" element={<Maquinas />} />
           <Route path="culturas" element={<Culturas />} />
