@@ -14,7 +14,7 @@ def consultar_producao():
         cursor.execute("""
             SELECT p.id, p.idTalhao, p.cultura, p.safra, p.quantidade_colhida, p.unidade, p.data_registro, t.tipoCultura, t.area
             FROM Producao p
-            LEFT JOIN Talhao t ON t.id = idTalhao
+            LEFT JOIN Talhao t ON t.id = p.idTalhao
             ORDER BY p.data_registro DESC
         """)
         colunas = [desc[0] for desc in cursor.description]
@@ -61,9 +61,57 @@ def cadastrar_producao(producao: Producao):
 @router_producao.get('/{id}')
 
 def buscar_producao(id: int):
-    pass
+    conn = conectar()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+                SELECT p.id, p.idTalhao, p.cultura, p.safra, p.quantidade_colhida, p.unidade, p.data_registro, t.tipoCultura, t.area
+                FROM Producao p
+                LEFT JOIN Talhao t ON t.id = p.idTalhao
+                WHERE p.id=%s
+            """, (id,))
+        row=cursor.fetchone()
+        if row is None:
+            raise HTTPException(status_code=404, detail="Producão não encontrada")
+        colunas = [desc[0] for desc in cursor.description]
+        return dict(zip(colunas, row))
+    except HTTPException: 
+        raise
+    except Exception as e: 
+        raise HTTPException(status_code=500, detail=str(e))
+    
+    finally:
+        cursor.close()
+        conn.close()
+
 
 @router_producao.put('/{id}')
 def atualizar_producao(id: int, producao: Producao):
-    pass
+    
+    conn = conectar()
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute("""
+            UPDATE Producao
+            SET idTalhao=%s, cultura=%s, safra=%s, quantidade_colhida=%s, unidade=%s, data_registro=%s
+            WHERE id=%s
+        """,(
+            producao.idTalhao, producao.cultura, producao.safra, producao.quantidade_colhida, producao.unidade, producao.data_registro, id
+            
+        ))
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Produção não encontrada")
+        conn.commit()
+        return {"mensagem": "Produção atualizada"}
+    except HTTPException:
+        raise
+    
+    except HTTPException as e: 
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    
+    finally: 
+        cursor.close()
+        conn.close()
 
