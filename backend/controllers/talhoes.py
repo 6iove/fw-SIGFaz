@@ -1,76 +1,108 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
+from models.model import Talhao
+from db import conectar
 
-router_talhoes = APIRouter(prefix="/talhoes")
-talhoes_mock = [
-    {
-        "id": 1,
-        "nome": "Talhão Norte",
-        "area_hectares": 25.5,
-        "cultura_id": 1,
-        "data_plantio": "2026-03-10",
-        "insumo": "Fertilizante NPK",
-        "maquina_id": 101,
-        "operador": "João Silva",
-        "fazenda_id": 1
-    },
-    {
-        "id": 2,
-        "nome": "Talhão Sul",
-        "area_hectares": 18.0,
-        "cultura_id": 2,
-        "data_plantio": "2026-04-02",
-        "insumo": "Herbicida",
-        "maquina_id": 102,
-        "operador": "Maria Souza",
-        "fazenda_id": 1
-    },
-    {
-        "id": 3,
-        "nome": "Talhão Leste",
-        "area_hectares": 30.2,
-        "cultura_id": 3,
-        "data_plantio": "2026-02-15",
-        "insumo": "Calcário",
-        "maquina_id": 103,
-        "operador": "Carlos Lima",
-        "fazenda_id": 2
-    }
-]
-@router_talhoes.get('/')  
-
-def consultar_talhoes():
-     return talhoes_mock
+router_talhoes = APIRouter(
+    prefix="/talhoes",
+    tags=["Talhões"]
+)
 
 
-@router_talhoes.get('/{id}')  
+@router_talhoes.post('/')
+def cadastrar_talhao(talhao: Talhao):
 
-def consultar_talhao(id: int):
-     return {
-        "id": id
-    }
+    conn = conectar()
+    cursor = conn.cursor()
+
+    sql = """
+    INSERT INTO Talhao
+    (area, tipoCultura, idade, volumeEstimado, idFazenda)
+    VALUES (%s, %s, %s, %s, %s)
+    """
+
+    valores = (
+        talhao.area,
+        talhao.tipoCultura,
+        talhao.idade,
+        talhao.volumeEstimado,
+        talhao.idFazenda
+    )
+
+    cursor.execute(sql, valores)
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return {"mensagem": "Talhão cadastrado"}
 
 
-@router_talhoes.post('/')  
+@router_talhoes.get('/')
+def listar_talhoes():
 
-def cadastrar_talhoes():
-   return {
-        "msg": "Talhão cadastrado"
-    }
+    conn = conectar()
+    cursor = conn.cursor()
 
-@router_talhoes.put('/{id}')  
+    cursor.execute("SELECT * FROM Talhao")
 
-def alterar_talhao(id: int):
-     return {
-        "msg": f"Talhão {id} atualizado"
-    }
+    dados = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return dados
 
 
-@router_talhoes.delete('/{id}')  
+@router_talhoes.put('/{id}')
+def atualizar_talhao(id: int, talhao: Talhao):
 
+    conn = conectar()
+    cursor = conn.cursor()
+
+    sql = """
+    UPDATE Talhao
+    SET area=%s,
+        tipoCultura=%s,
+        idade=%s,
+        volumeEstimado=%s,
+        idFazenda=%s
+    WHERE id=%s
+    """
+
+    valores = (
+        talhao.area,
+        talhao.tipoCultura,
+        talhao.idade,
+        talhao.volumeEstimado,
+        talhao.idFazenda,
+        id
+    )
+
+    cursor.execute(sql, valores)
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return {"mensagem": "Talhão atualizado"}
+
+
+@router_talhoes.delete('/{id}')
 def deletar_talhao(id: int):
-    return {
-        "msg": f"Talhão {id} deletado"
-    }
-@router_talhoes.get('/fazenda/{id}')
-def listar_por_fazenda(id: int):
-    return {"msg": f"talhões da fazenda {id}"}
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM Talhao WHERE id=%s",
+        (id,)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return {"mensagem": "Talhão deletado"}
