@@ -115,3 +115,26 @@ def atualizar_producao(id: int, producao: Producao):
         cursor.close()
         conn.close()
 
+@router_producao.delete('/{id}')
+def deletar_producao(id: int):
+    
+    conn = conectar()
+    cursor = conn.cursor()
+    
+    try: 
+        cursor.execute("DELETE FROM Producao WHERE id=%s", (id,))
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Produção não encontrada")
+        conn.commit()
+        return {"mensagem": "Produção deletada"}
+    
+    except HTTPException:
+        raise
+    
+    except Exception as e: 
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    
+    finally:
+        cursor.close()
+        conn.close()
