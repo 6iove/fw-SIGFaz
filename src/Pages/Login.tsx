@@ -3,8 +3,8 @@ import { useState } from "react";
 import apiSigfaz from "../services/api";
 
 function Login() {
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,10 +16,7 @@ function Login() {
 
     try {
       //inicio da requisição para o backend usando a baseURL do apiSigfaz
-      const response = await apiSigfaz.post<{
-        token: string;
-        usuario: string;
-      }>("/auth/login", {email, senha: password,}); 
+      const response = await apiSigfaz.post<{token: string; usuario: string;}>("/auth/login", {email, senha: password,}); 
 
       console.log("Resposta backend:", response.data);
 

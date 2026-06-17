@@ -9,7 +9,7 @@ export default function ModalNovoCadastro({ onClose }: ModalNovoCadastroProps) {
   const cadastrarFazenda = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     alert("Fazenda cadastrada com sucesso!");
-    onClose(); // Fechar o modal após o cadastro
+    onClose(); 
   }
   
   return (
