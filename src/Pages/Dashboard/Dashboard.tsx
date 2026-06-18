@@ -11,10 +11,6 @@ function Dashboard() {
   const handleExit = () => {
     navigate('/');
   };
-
-  
-
-
   return (
     <>
       
@@ -32,7 +28,7 @@ function Dashboard() {
             
             <div className="flex flex-col gap-2 text-gray-600 font-medium">
               <MenuItem direction="/dashboard" text="Dashboard" end /> 
-              
+              <MenuItem direction="/dashboard/fazenda" text="Fazenda" />
               <MenuItem direction="/dashboard/talhoes" text="Talhões" />
               <MenuItem direction="/dashboard/maquinas" text="Máquinas" />
               <MenuItem direction="/dashboard/culturas" text="Culturas" />

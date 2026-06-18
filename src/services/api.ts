@@ -1,4 +1,4 @@
-//cria uma instancia 
+//instancia do axios para a api do sigfaz
 import axios from 'axios';
 
 const apiSigfaz = axios.create({
