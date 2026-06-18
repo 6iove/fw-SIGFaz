@@ -11,7 +11,6 @@ import { Footer } from "../Components/componentsSobreNos/Footer";
 function SobreNos() {
   return (
     <div>
-      {/*cada seção da pagina sobre nos é um componente diferente */}
       <Navbar />
       <InicialPage />
       <ProblemaSolucao />

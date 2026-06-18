@@ -25,9 +25,13 @@ export default function FazendasPage() {
               <h1 className="text-2xl font-bold text-slate-800">Fazendas</h1>
               <p className="text-sm text-slate-500">Gerencie suas unidades de produção cadastradas no sistema.</p>
             </div>
-             <Button  onClick={() => setIsModalOpen(true)} icon={<Plus className="text-white" size={20} />}  text="Nova Fazenda" bgColor="bg-green-600" fontColor="text-white" bgHover="bg-green-400"/>
+             <Button  
+             onClick={() => setIsModalOpen(true)} 
+             icon={<Plus className="text-white" size={20} />}  
+             text="Nova Fazenda" 
+             bgColor="bg-green-600" fontColor="text-white" bgHover="bg-green-400"/>
 
-            {isModalOpen && <ModalNovoCadastro onClose={() => setIsModalOpen(false)} />}
+            {isModalOpen && <ModalNovoCadastro onClose={() => setIsModalOpen(false)} />} //se o modal estiver aberto, renderiza o componente ModalNovoCadastro
               
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -78,7 +82,6 @@ export default function FazendasPage() {
               </button>
             </div>
 
-            {/* Tabela de Dados */}
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm border-collapse">
                 <thead>
@@ -89,7 +92,7 @@ export default function FazendasPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-slate-700">
-                  {fazendas.map((fazenda) => (
+                  {fazendas.map((fazenda) => ( // renderiza uma linha para cada fazenda
                     <tr key={fazenda.id} className="hover:bg-slate-50/80 transition">
                       <td className="py-3.5 px-6 font-medium text-slate-800">{fazenda.nome}</td>
                       <td className="py-3.5 px-6 text-right font-mono text-slate-600">{fazenda.producao}</td>

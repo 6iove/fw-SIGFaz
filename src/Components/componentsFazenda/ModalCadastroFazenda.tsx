@@ -1,6 +1,6 @@
-// ModalNovoCadastro.tsx
 import { X } from "lucide-react";
 
+//definicindo o tpo das props para o componente de modal
 type ModalNovoCadastroProps = {
   onClose: () => void;
 };
@@ -24,9 +24,7 @@ export default function ModalNovoCadastro({ onClose }: ModalNovoCadastroProps) {
             </p>
           </div>
 
-          <button onClick={onClose}>
-            <X />
-          </button>
+          <button onClick={onClose}><X /></button>
         </div>
 
           <form onSubmit={cadastrarFazenda} className="p-6 space-y-6" >
@@ -124,14 +122,11 @@ export default function ModalNovoCadastro({ onClose }: ModalNovoCadastroProps) {
             <button 
               type="button"
               onClick={onClose}
-              className="px-6 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 transition"
-            >
-              Cancelar
+              className="px-6 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 transition">Cancelar
             </button>
             <button 
               type="submit"
-              className="px-6 py-2 rounded-lg text-sm font-medium bg-[#22c55e] text-white hover:bg-emerald-600 shadow-md transition"
-            >
+              className="px-6 py-2 rounded-lg text-sm font-medium bg-[#22c55e] text-white hover:bg-emerald-600 shadow-md transition">
               Salvar Fazenda
             </button>
           </div>
